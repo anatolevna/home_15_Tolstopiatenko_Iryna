@@ -15,20 +15,18 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php bloginfo('name');
+        wp_title(); ?></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
 
     <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-<!--<div id="page" class="site">
-    <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e('Skip to content', 'notify'); ?></a>-->
-
 <header id="masthead" class="site-header">
-    <div class="main-background"
-         style="background: url('<?php bloginfo('template_url') ?>/images/main-background.png') no-repeat center/cover">
+    <div class="main-background">
         <div class="container clearfix">
-           <div class="notify">
+            <div class="notify">
                 <?php if (get_custom_logo()) : ?>
                     <a href="<?php echo esc_url(home_url('/')); ?>" class="logo-header" rel="home">
                         <?php the_custom_logo(); ?>
@@ -39,7 +37,9 @@
                              class="logo-img">
                     </a>
                 <?php endif; ?>
-                <p>A great new free psd theme to showcase your new application. </p>
+                <p class="descr"><?php
+                    echo get_bloginfo( 'description' ) // краткое описание
+                    ?><!--A great new free psd theme to showcase your new application. --></p>
                 <!-- #site-navigation -->
                 <?php wp_nav_menu(array(
                     'theme_location' => 'header_menu',
@@ -54,5 +54,3 @@
     </div>
 
 </header><!-- #masthead -->
-
-<div id="content" class="site-content">

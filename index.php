@@ -12,7 +12,8 @@
  * @package notify
  */
 
-get_header(); ?>
+get_header();
+?>
 
 
 <?php if (have_posts()) :
@@ -21,7 +22,6 @@ get_header(); ?>
         <header>
             <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
         </header>
-
     <?php
     endif;
 
@@ -43,11 +43,33 @@ else :
 
     get_template_part('template-parts/content', 'none');
 
-endif; ?>
+endif;
+?>
+    <section id="post" class="background-editable-flat-reach">
 
-    </main><!-- #main -->
-    </div><!-- #primary -->
+        <div class="container">
+            <?php echo get_theme_mod('copyright_textbox', 'Текст копирайта еще не придумали'); ?>
+
+            <ul class="gear-star-earth">
+                <?php if (have_posts()) : ?>
+                    <?php  while (have_posts()) : the_post(); ?>
+                        <li class="card">
+                            <div class="box-img">
+                                <?php the_post_thumbnail('full', 'class=round-img'); ?>
+                            </div>
+                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                            <p><?php the_excerpt(); ?></p>
+                        </li>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+            </ul>
+        </div>
+        </div>
+    </section>
+
+
 
 <?php
 get_sidebar();
 get_footer();
+?>

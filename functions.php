@@ -132,6 +132,9 @@ add_action('widgets_init', 'notify_widgets_init');
  */
 function notify_scripts()
 {
+    wp_enqueue_style( 'notify-style', get_stylesheet_uri() );
+    //    my styles
+    wp_enqueue_style('style', get_template_directory_uri() . '/css/main.css' );
 
 
     wp_enqueue_script('notify-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true);
@@ -176,4 +179,46 @@ if (defined('JETPACK__VERSION')) {
 
  */
 
+add_action('customize_register', function($customizer){
+    $customizer->add_section(
+        'example_section_one',
+        array(
+            'title' => 'Мои настройки',
+            'description' => 'Пример секции',
+            'priority' => 11,
+        )
+    );
+});
+
+function custom_customize_register( $wp_customize ) {
+    //Создаем свои поля, секции и контролы здесь }
+    // //код выполнится во время загрузки персонализатора
+    add_action( 'customize_register', 'custom_customize_register' );
+}
+
+function create_post_your_post() {
+    register_post_type( 'your_post',
+        array(
+            'labels'       => array(
+                'name'       => __( 'Your Post' ),
+            ),
+            'public'       => true,
+            'hierarchical' => true,
+            'has_archive'  => true,
+            'supports'     => array(
+                'title',
+                'editor',
+                'excerpt',
+                'thumbnail',
+            ),
+            'taxonomies'   => array(
+                'post_tag',
+                'category',
+            )
+        )
+    );
+    register_taxonomy_for_object_type( 'category', 'your_post' );
+    register_taxonomy_for_object_type( 'post_tag', 'your_post' );
+}
+add_action( 'init', 'create_post_your_post' );
 ?>
